@@ -1,11 +1,508 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>MrGreenAuto</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MrGreenAuto — Авто и запчасти из ОАЭ</title>
+  <meta name="description" content="MrGreenAuto — страховые авто с аукционов, б/у с рынка ОАЭ, новые авто. Запчасти: авто на разбор, агрегаты (двигатели и трансмиссии), кузовщина (ноускаты). Экспорт и логистика в СНГ."/>
+  <meta name="theme-color" content="#0b0f14">
+  <link rel="canonical" href="https://mrgreenauto.example/"/>
+  <!-- OpenGraph -->
+  <meta property="og:title" content="MrGreenAuto — Авто и запчасти из ОАЭ"/>
+  <meta property="og:description" content="Страховые авто, б/у, новые. Запчасти: двигатели, коробки, ноускаты. Доставка в СНГ."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="/img/cover.jpg"/>
+  <!-- JSON-LD Organization -->
+  <script type="application/ld+json">{
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"MrGreenAuto",
+    "url":"https://mrgreenauto.example/",
+    "logo":"https://mrgreenauto.example/img/logo.png",
+    "sameAs":["https://t.me/+971585085529","https://instagram.com/greengoimport"],
+    "contactPoint":[{"@type":"ContactPoint","telephone":"+971585085529","contactType":"sales","areaServed":"RU,KZ,BY,AE"}]
+  }</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b0f14;--card:#111822;--muted:#6b7a90;--brand:#2ecc71;--brand-2:#16a34a;--text:#e6edf3;--accent:#1f2937}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1180px;margin:0 auto;padding:0 16px}
+    header{position:sticky;top:0;z-index:60;background:rgba(11,15,20,.85);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid #1c2532}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#0ea5e9);display:grid;place-items:center;font-weight:800;color:#0b0f14}
+    .brand-name{font-weight:700;letter-spacing:.2px}
+    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu a{padding:8px 10px;border-radius:10px;color:#c8d3e0}
+    .menu a.active,.menu a:hover{background:#0f1622}
+    .cta{display:flex;gap:10px;align-items:center}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid #223042;background:#0d1420;color:#cfe6d8;font-weight:600}
+    .btn:hover{background:#121b2a}
+    .btn-brand{border:1px solid #2a7f52;background:linear-gradient(180deg,#29b36a 0%, #1d9c58 100%);color:#02150a}
+
+    /* hero */
+    .hero{position:relative;padding:42px 0 28px;border-bottom:1px solid #172232;background:
+      radial-gradient(1200px 400px at 80% -10%,rgba(35,197,102,.15),transparent),
+      radial-gradient(900px 300px at 10% 10%,rgba(0,200,255,.08),transparent)}
+    .hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+    .h1{font-size:38px;line-height:1.1;margin:0 0 10px}
+    .lead{color:#a9b6c7;max-width:680px}
+    .hero-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .hc{background:var(--card);border:1px solid #1d2734;border-radius:18px;padding:14px}
+    .hc h3{margin:6px 0 6px;font-size:16px}
+    .hc p{margin:0;color:#93a4b8;font-size:13px}
+
+    /* layout */
+    .filters{position:sticky;top:64px;z-index:40;background:var(--bg);padding:10px 0;border-bottom:1px solid #172232}
+    .fx{display:flex;gap:10px;flex-wrap:wrap}
+    .fld{background:#0d141e;border:1px solid #1e2a3a;border-radius:12px;padding:8px 10px;min-width:160px;color:#cdd6e1}
+    .fld input,.fld select{width:100%;background:transparent;border:0;outline:0;color:#d7e1ee}
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;padding:18px 0}
+    .col-3{grid-column:span 3}
+    .col-4{grid-column:span 4}
+    .col-6{grid-column:span 6}
+    .col-12{grid-column:span 12}
+    @media(max-width:1024px){.col-3{grid-column:span 6}.hero-wrap{grid-template-columns:1fr}.hero-cards{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.col-3,.col-4,.col-6{grid-column:span 12}.menu{display:none}}
+
+    .card{background:var(--card);border:1px solid #1e2a31;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+    .card-media{position:relative;aspect-ratio:16/10;background:#0b1119}
+    .chip{position:absolute;left:10px;top:10px;background:rgba(7,12,18,.8);border:1px solid #243244;color:#b7c6d8;padding:6px 8px;border-radius:10px;font-size:12px}
+    .fav{position:absolute;right:10px;top:10px;background:rgba(7,12,18,.8);border:1px solid #2f4157;border-radius:10px;padding:6px;cursor:pointer}
+    .fav svg{width:18px;height:18px;fill:#87f2b1;opacity:.8}
+    .carousel{position:absolute;inset:0;display:grid;place-items:center}
+    .carousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease}
+    .carousel img.active{opacity:1}
+    .dots{position:absolute;left:0;right:0;bottom:8px;display:flex;gap:6px;justify-content:center}
+    .dot{width:8px;height:8px;border-radius:100px;background:rgba(255,255,255,.25)}
+    .dot.on{background:var(--brand)}
+
+    .card-body{padding:12px 14px}
+    .title{font-weight:700;margin:0 0 4px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;color:#9fb0c6;font-size:12px}
+    .price{margin-top:10px;font-weight:800;font-size:18px;color:#b9f6d0}
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding:12px 14px;border-top:1px solid #1a2432}
+    .pill{padding:8px 10px;border-radius:12px;border:1px solid #1f2b3c;background:#0c131f;color:#d2deec;font-weight:600;font-size:13px}
+    .pill.green{border-color:#2a7f52;background:linear-gradient(180deg,#29b36a 0%, #1d9c58 100%);color:#03150a}
+
+    .empty{padding:50px;text-align:center;color:#96a7bb}
+
+    footer{margin-top:40px;padding:32px 0;border-top:1px solid #172232;background:#0a0f15}
+    .ft{display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px}
+    @media(max-width:900px){.ft{grid-template-columns:1fr}}
+    .ft h4{margin:0 0 10px}
+    .muted{color:#97a6ba}
+    .social{display:flex;gap:10px;margin-top:10px}
+    .social a{padding:8px 10px;border:1px solid #203043;border-radius:10px}
+
+    .grp{display:flex;gap:6px;flex-wrap:wrap}
+    .badge{font-size:12px;padding:5px 8px;border-radius:10px;border:1px solid #213144;color:#a9b6c7;background:#0c131d}
+
+    .toast{position:fixed;right:16px;bottom:16px;background:#0f1a26;border:1px solid #1e2b3d;border-radius:12px;padding:10px 12px;color:#cfe1f1;opacity:0;transform:translateY(10px);transition:all .25s}
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    /* simple pages */
+    .page{display:none}
+    .page.active{display:block}
+    .prose{color:#cfe1f1;line-height:1.65}
+    .prose h2{margin:14px 0 8px}
+    .lang{cursor:pointer;padding:6px 8px;border:1px solid #244; border-radius:10px}
+  </style>
 </head>
 <body>
-  <h1>MrGreenAuto — Авто и запчасти из ОАЭ</h1>
-  <p>Файл-заглушка. Используйте полный index.html из канваса.</p>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">MG</div>
+        <div>
+          <div class="brand-name">MrGreenAuto</div>
+          <div style="font-size:12px;color:#8fa3ba" id="tagline">Авто и запчасти из ОАЭ • экспорт в СНГ</div>
+        </div>
+      </div>
+      <nav class="menu" id="menu">
+        <a href="#/" data-route>Главная</a>
+        <a href="#/catalog" data-route>Каталог</a>
+        <a href="#/favorites" data-route>Избранное</a>
+        <a href="#/about" data-route>О нас</a>
+        <a href="#/logistics" data-route>Логистика</a>
+        <a href="#/faq" data-route>FAQ</a>
+      </nav>
+      <div class="cta">
+        <span class="lang" id="langToggle" title="RU / EN">RU</span>
+        <a class="btn" href="tel:+971585085529">+971 58 508 5529</a>
+        <a class="btn btn-brand" target="_blank" href="https://t.me/+971585085529">Написать в TG</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero page active" id="page-home">
+    <div class="container hero-wrap">
+      <div>
+        <h1 class="h1" data-i18n="h1">Один сайт — все направления: <span style="color:#7ef2a8">страховые авто, б/у, новые, агрегаты, кузовщина</span></h1>
+        <p class="lead" data-i18n="lead">Подбор и поставки из ОАЭ: целые авто и под восстановление, авто на разбор, двигатели и трансмиссии, nose-cuts. Организуем погрузку, логистику, экспорт в страны СНГ. Работаем прозрачно и официально.</p>
+        <div class="grp" style="margin:16px 0 20px">
+          <span class="badge" data-i18n="badge1">Шарджа / Дубай</span>
+          <span class="badge" data-i18n="badge2">Контейнеры и авиа</span>
+          <span class="badge" data-i18n="badge3">Оптом и розница</span>
+          <span class="badge" data-i18n="badge4">Отчёты и фото‑видео</span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-brand" href="#/catalog?cat=parts" data-i18n="cta1">Найти запчасть</a>
+          <a class="btn" href="#/catalog?cat=insurance" data-i18n="cta2">Посмотреть страховые</a>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="hc"><h3 data-i18n="hc1">Страховые авто (аукционы)</h3><p data-i18n="hc1p">Run&Drive / Non‑Runner • Оценка ремонта • Экспорт</p></div>
+        <div class="hc"><h3 data-i18n="hc2">БУ авто с площадок ОАЭ</h3><p data-i18n="hc2p">Проверенная история • Диагностика • Фото‑видео отчёт</p></div>
+        <div class="hc"><h3 data-i18n="hc3">Агрегаты</h3><p data-i18n="hc3p">Двигатели / КПП • Компрессия • Гарантия запуска</p></div>
+        <div class="hc"><h3 data-i18n="hc4">Кузовщина (ноускаты)</h3><p data-i18n="hc4p">Фары • Телевизоры • Бампера • Капоты • Крылья</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="filters page" id="page-catalog-filters">
+    <div class="container fx">
+      <div class="fld" style="flex:1 1 260px"><input id="q" placeholder="Поиск: марка, модель, двигатель… (например: Land Cruiser 300, 2GR)"/></div>
+      <div class="fld">
+        <select id="category">
+          <option value="all">Все категории</option>
+          <option value="insurance">Страховые (аукционы)</option>
+          <option value="used">БУ с рынка ОАЭ</option>
+          <option value="new">Новые авто</option>
+          <option value="parts">Запчасти — все</option>
+          <option value="parts.cars">Запчасти: авто на разбор</option>
+          <option value="parts.aggregates">Запчасти: агрегаты (двигатели+трансмиссия)</option>
+          <option value="parts.body">Запчасти: кузовщина (ноускаты)</option>
+        </select>
+      </div>
+      <div class="fld"><select id="brand"><option value="">Марка (все)</option></select></div>
+      <div class="fld"><select id="status"><option value="">Состояние (все)</option><option>Run & Drive</option><option>Требует ремонта</option><option>На разбор</option><option>Новый</option></select></div>
+      <button class="btn" id="resetBtn">Сбросить</button>
+    </div>
+  </section>
+
+  <main class="container page" id="page-catalog">
+    <div id="results" class="grid" aria-live="polite"></div>
+    <div id="empty" class="empty" style="display:none">По вашему запросу ничего не найдено. Измените фильтры или напишите нам в Telegram — подберём вручную.</div>
+  </main>
+
+  <main class="container page" id="page-item">
+    <div id="itemView" class="prose">
+      <!-- динамически рендерится карточка товара с большим описанием -->
+    </div>
+  </main>
+
+  <main class="container page" id="page-favorites">
+    <h2>Избранное</h2>
+    <div id="favList" class="grid"></div>
+    <div id="favEmpty" class="empty" style="display:none">В избранном пока пусто.</div>
+  </main>
+
+  <main class="container page" id="page-about">
+    <div class="prose">
+      <h2>О компании</h2>
+      <p>MrGreenAuto — платформа подбора и поставок автомобилей и запчастей из ОАЭ. Мы работаем по договору, предоставляем отчёты и организуем логистику до вашего города.</p>
+      <ul>
+        <li>Подбор целых и страховых авто под восстановление</li>
+        <li>Запчасти: авто на разбор, агрегаты, кузовщина</li>
+        <li>Отправка контейнерами и авиа</li>
+        <li>Экспорт в РФ, КЗ, BY и другие страны СНГ</li>
+      </ul>
+    </div>
+  </main>
+
+  <main class="container page" id="page-logistics">
+    <div class="prose">
+      <h2>Логистика и экспорт</h2>
+      <p>Мы берём на себя: упаковку, фото‑видео фиксацию, растаможку по запросу, подбор оптимального маршрута (через Иран/КЗ, порты РФ, воздушная доставка для срочных агрегатов).</p>
+      <ul>
+        <li>Страхование груза и пломбировка контейнера</li>
+        <li>Инвойсы и документы</li>
+        <li>Отчёт по погрузке</li>
+      </ul>
+    </div>
+  </main>
+
+  <main class="container page" id="page-faq">
+    <div class="prose">
+      <h2>FAQ</h2>
+      <p><b>Как купить страховой автомобиль?</b> Мы предоставим доступ к лотам, сделаем проверку и рассчитаем бюджет восстановления.</p>
+      <p><b>Есть ли гарантия на агрегаты?</b> Да, гарантия запуска и проверка компрессии (по согласованию).</p>
+      <p><b>Как оформить доставку?</b> Оставьте заявку на лоте — мы подтвердим сроки и тариф.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container ft">
+      <div>
+        <h4>MrGreenAuto</h4>
+        <p class="muted">Авто и запчасти из ОАЭ: страховые авто с аукционов под восстановление, б/у с рынка, новые авто, а также авто на запчасти, агрегаты и кузовщина. Экспорт и сопровождение.</p>
+        <div class="social">
+          <a target="_blank" href="https://t.me/+971585085529">Telegram</a>
+          <a target="_blank" href="https://instagram.com/greengoimport">Instagram</a>
+          <a href="mailto:info@mrgreenauto.com">info@mrgreenauto.com</a>
+          <a href="tel:+971585085529">+971 58 508 5529</a>
+        </div>
+      </div>
+      <div>
+        <h4>Категории</h4>
+        <div class="muted" style="display:grid;gap:8px">
+          <a href="#/catalog?cat=insurance">Страховые (аукционы)</a>
+          <a href="#/catalog?cat=used">БУ с рынка ОАЭ</a>
+          <a href="#/catalog?cat=new">Новые авто</a>
+          <a href="#/catalog?cat=parts">Запчасти</a>
+          <a href="#/catalog?cat=parts.aggregates">Агрегаты</a>
+          <a href="#/catalog?cat=parts.body">Кузовщина</a>
+        </div>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <div class="muted" style="display:grid;gap:6px">
+          <span>ОАЭ: Дубай / Шарджа</span>
+          <span>WhatsApp / Telegram: +971 58 508 5529</span>
+          <span>Работаем официально • Договор и инвойсы</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Добавлено в избранное</div>
+
+  <!-- ДАННЫЕ: можно вынести в data.json, но для GitHub Pages всё работает и inline -->
+  <script id="data" type="application/json">{
+    "listings":[
+      {"id":"au-300-1","category":"insurance","title":"Toyota Land Cruiser 300 • 3.5T • 2022","brand":"Toyota","status":"Требует ремонта","price":48700,"currency":"USD","location":"Dubai","images":["https://images.unsplash.com/photo-1633002881179-859b4fb2641a?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1605559424843-9e4c2e4b4d79?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1600&auto=format&fit=crop"],"specs":["V6 Twin‑Turbo","4x4","1 владелец в ОАЭ","Оценка ремонта доступна"],"chips":["Insurance Auction","Runlist"]},
+      {"id":"used-bmw-x5","category":"used","title":"BMW X5 • 40i • 2021","brand":"BMW","status":"Run & Drive","price":35500,"currency":"USD","location":"Sharjah","images":["https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1517672651691-24622a91b550?q=80&w=1600&auto=format&fit=crop"],"specs":["Пробег 68k km","Полная история сервиса","Фото‑видео отчёт"],"chips":["Used Market","GCC"]},
+      {"id":"new-omoda-c5","category":"new","title":"Omoda C5 • 1.6T • NEW 2025","brand":"Omoda","status":"Новый","price":23900,"currency":"USD","location":"Dubai","images":["https://images.unsplash.com/photo-1619767886558-efdc259cde1b?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1619645688076-7f867928b4ce?q=80&w=1600&auto=format&fit=crop"],"specs":["Гарантия дилера","0 km","Разные комплектации"],"chips":["Brand New"]},
+      {"id":"parts-car-lexus","category":"parts.cars","title":"Lexus RX350 • на разбор • 2019","brand":"Lexus","status":"На разбор","price":0,"currency":"USD","location":"Sharjah","images":["https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1495435229349-e86db7bfa013?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1600&auto=format&fit=crop"],"specs":["Полный разбор","Оригинал GCC","Быстрая отгрузка"],"chips":["Разбор","V6"]},
+      {"id":"agg-2gr","category":"parts.aggregates","title":"Двигатель Toyota 2GR‑FE • контрактный","brand":"Toyota","status":"Run & Drive","price":1400,"currency":"USD","location":"Sharjah","images":["https://images.unsplash.com/photo-1607798748738-b15c40d33d57?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1604147706287-460b8d41f224?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1574782090887-6c68f6b2957e?q=80&w=1600&auto=format&fit=crop"],"specs":["Компрессия проверена","Малый пробег","Гарантия запуска"],"chips":["Engine","V6 3.5L"]},
+      {"id":"agg-2az","category":"parts.aggregates","title":"Двигатель Toyota 2AZ‑FE • хороший стейт","brand":"Toyota","status":"Run & Drive","price":1350,"currency":"USD","location":"Sharjah","images":["https://images.unsplash.com/photo-1588416388771-5c72e65a6052?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1471479913137-9f37f2f4b4b0?q=80&w=1600&auto=format&fit=crop"],"specs":["Чистый мотор","Отличная компрессия","Готов к отправке"],"chips":["Engine","2.4L"]},
+      {"id":"body-nose-lc200","category":"parts.body","title":"Nose‑cut Toyota Land Cruiser 200","brand":"Toyota","status":"На разбор","price":2400,"currency":"USD","location":"Dubai","images":["https://images.unsplash.com/photo-1583251314415-6f1e76c1dbbd?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1600&auto=format&fit=crop","https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop"],"specs":["Фары • Телевизор • Бампер • Капот","OEM","Быстрая отгрузка"],"chips":["Nose‑cut","Body"]}
+    ]
+  }</script>
+
+  <script>
+    // === МИНИ-РОУТЕР (SPA под GitHub Pages) ===
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
+    const state = { listings: JSON.parse($('#data').textContent).listings, lang:'ru' };
+
+    const routes = {
+      '/': ()=> show('page-home'),
+      '/catalog': ()=>{ show('page-catalog-filters','page-catalog'); bootstrapCatalog(); applyFilters(); },
+      '/item': (params)=>{ show('page-item'); renderItem(params.get('id')); },
+      '/favorites': ()=>{ show('page-favorites'); renderFavorites(); },
+      '/about': ()=> show('page-about'),
+      '/logistics': ()=> show('page-logistics'),
+      '/faq': ()=> show('page-faq')
+    };
+
+    function parseHash(){
+      const [path,q] = location.hash.replace(/^#/, '').split('?');
+      const url = new URLSearchParams(q||'');
+      return { path: path||'/', params: url };
+    }
+
+    function show(...ids){
+      $$('.page').forEach(p=>p.classList.remove('active'));
+      ids.forEach(id=> $('#'+id).classList.add('active'));
+      // активное меню
+      $$('#menu a[data-route]').forEach(a=>{
+        const href = a.getAttribute('href').replace('#','');
+        a.classList.toggle('active', href===(location.hash.replace('#','')||'/'))
+      });
+    }
+
+    window.addEventListener('hashchange', onRoute);
+    function onRoute(){
+      const {path,params} = parseHash();
+      (routes[path]||routes['/'])(params);
+    }
+
+    // === КАТАЛОГ ===
+    const results = $('#results');
+    const empty = $('#empty');
+    const brandSel = $('#brand');
+    const q = $('#q'); const catSel = $('#category'); const statusSel = $('#status');
+
+    function bootstrapCatalog(){
+      // бренды
+      const brands = Array.from(new Set(state.listings.map(x=>x.brand))).sort();
+      brandSel.innerHTML = '<option value="">Марка (все)</option>' + brands.map(b=>`<option>${b}</option>`).join('');
+      // из query
+      const { params } = parseHash();
+      const cat = params.get('cat') || 'all';
+      catSel.value = cat; // если parts → покажем все parts.*
+      [q,catSel,brandSel,statusSel].forEach(el=> el.oninput = applyFilters);
+      $('#resetBtn').onclick = ()=>{ q.value=''; catSel.value='all'; brandSel.value=''; statusSel.value=''; location.hash='#/catalog'; };
+    }
+
+    function applyFilters(){
+      const text = (q?.value||'').trim().toLowerCase();
+      const cat = catSel?.value || 'all';
+      const brand = brandSel?.value || '';
+      const status = statusSel?.value || '';
+      let list = state.listings.slice();
+      if(cat!=="all"){ list = list.filter(x=> x.category===cat || (cat==='parts' && x.category.startsWith('parts.')) ); }
+      if(brand){ list = list.filter(x=> (x.brand||'')===brand ); }
+      if(status){ list = list.filter(x=> (x.status||'')===status ); }
+      if(text){ list = list.filter(x=> (x.title+' '+(x.specs||[]).join(' ')).toLowerCase().includes(text)); }
+      render(list);
+    }
+
+    function render(list){
+      results.innerHTML='';
+      if(!list.length){ empty.style.display='block'; return; }
+      empty.style.display='none';
+      list.forEach(item=>{
+        const col = document.createElement('div'); col.className='col-3';
+        col.innerHTML = cardHTML(item);
+        results.appendChild(col);
+        initCarousel(col);
+      });
+    }
+
+    function cardHTML(item){
+      const chips = (item.chips||[]).map(c=>`<span class="chip">${c}</span>`).join('');
+      const specs = (item.specs||[]).map(s=>`<span class="badge">${s}</span>`).join('');
+      return `
+      <article class="card" data-id="${item.id}">
+        <a href="#/item?id=${encodeURIComponent(item.id)}" class="card-media">
+          <div class="carousel">
+            ${item.images.map((src,i)=>`<img src="${src}" alt="${item.title} — фото ${i+1}" class="${i===0?'active':''}">`).join('')}
+          </div>
+          ${chips}
+          <button class="fav" title="В избранное" data-fav="${item.id}" onclick="event.preventDefault();"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+          <div class="dots">${item.images.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join('')}</div>
+        </a>
+        <div class="card-body">
+          <h3 class="title">${item.title}</h3>
+          <div class="meta"><span>${item.brand||''}</span><span>• ${item.location}</span><span>• ${item.status}</span></div>
+          <div class="price">${fmtPrice(item.price,item.currency)}</div>
+          <div class="grp" style="margin-top:10px">${specs}</div>
+        </div>
+        <div class="row">
+          <a class="pill" target="_blank" href="https://t.me/+971585085529?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
+          <a class="pill" href="mailto:info@mrgreenauto.com?subject=${encodeURIComponent('Заявка: '+item.title)}&body=${encodeURIComponent('Здравствуйте! Хочу уточнить детали по: '+item.title+' ['+item.id+']
+Категория: '+item.category+'
+Состояние: '+item.status+'
+Локация: '+item.location)}">Запрос по email</a>
+          <a class="pill green" href="#/item?id=${encodeURIComponent(item.id)}">Подробнее</a>
+        </div>
+      </article>`
+    }
+
+    function initCarousel(scope){
+      const imgs = $$('.carousel img', scope);
+      const dots = $$('.dot', scope);
+      let i=0; if(!imgs.length) return;
+      setInterval(()=>{ imgs[i].classList.remove('active'); dots[i].classList.remove('on'); i=(i+1)%imgs.length; imgs[i].classList.add('active'); dots[i].classList.add('on'); }, 2800);
+    }
+
+    function fmtPrice(n,currency){ return n>0 ? new Intl.NumberFormat('ru-RU',{style:'currency',currency: currency||'USD',maximumFractionDigits:0}).format(n) : 'По запросу'; }
+
+    // === ITEM VIEW ===
+    function renderItem(id){
+      const item = state.listings.find(x=>x.id===id);
+      if(!item){ $('#itemView').innerHTML = '<div class="empty">Лот не найден</div>'; return; }
+      const specs = (item.specs||[]).map(s=>`<li>${s}</li>`).join('');
+      $('#itemView').innerHTML = `
+        <article class="card">
+          <div class="card-media" style="aspect-ratio:16/9">
+            <div class="carousel">${item.images.map((src,i)=>`<img src="${src}" class="${i===0?'active':''}" alt="${item.title} — фото ${i+1}">`).join('')}</div>
+            <div class="dots">${item.images.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join('')}</div>
+          </div>
+          <div class="card-body">
+            <h2 class="title">${item.title}</h2>
+            <div class="meta"><span>${item.brand}</span><span>• ${item.location}</span><span>• ${item.status}</span></div>
+            <div class="price">${fmtPrice(item.price,item.currency)}</div>
+            <ul>${specs}</ul>
+            <div class="grp">${(item.chips||[]).map(c=>`<span class='badge'>${c}</span>`).join('')}</div>
+          </div>
+          <div class="row">
+            <a class="pill" target="_blank" href="https://t.me/+971585085529?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
+            <a class="pill" href="mailto:info@mrgreenauto.com?subject=${encodeURIComponent('Заявка: '+item.title)}&body=${encodeURIComponent('Здравствуйте! Хочу уточнить детали по: '+item.title+' ['+item.id+']
+Категория: '+item.category+'
+Состояние: '+item.status+'
+Локация: '+item.location)}">Запрос по email</a>
+            <button class="pill green" data-order="${item.id}">Заказать / Бронь</button>
+            <button class="pill" data-fav="${item.id}">В избранное</button>
+          </div>
+        </article>`;
+      initCarousel($('#itemView'));
+    }
+
+    // === ИЗБРАННОЕ ===
+    const toast = $('#toast');
+    function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1600); }
+
+    document.addEventListener('click',e=>{
+      const fav = e.target.closest('[data-fav]');
+      if(fav){
+        const id = fav.getAttribute('data-fav');
+        const arr = JSON.parse(localStorage.getItem('fav')||'[]');
+        if(!arr.includes(id)){ arr.push(id); localStorage.setItem('fav', JSON.stringify(arr)); showToast('Добавлено в избранное'); }
+        else { showToast('Уже в избранном'); }
+      }
+      const ord = e.target.closest('[data-order]');
+      if(ord){
+        const id = ord.getAttribute('data-order');
+        const item = state.listings.find(x=>x.id===id);
+        const text = `Бронь / заказ: ${item.title} [${item.id}]`;
+        window.open(`https://t.me/+971585085529?text=${encodeURIComponent(text)}`, '_blank');
+      }
+    });
+
+    function renderFavorites(){
+      const arr = JSON.parse(localStorage.getItem('fav')||'[]');
+      const list = state.listings.filter(x=>arr.includes(x.id));
+      const wrap = $('#favList');
+      wrap.innerHTML='';
+      $('#favEmpty').style.display = list.length? 'none':'block';
+      list.forEach(item=>{
+        const col = document.createElement('div'); col.className='col-3';
+        col.innerHTML = cardHTML(item);
+        wrap.appendChild(col); initCarousel(col);
+      });
+    }
+
+    // === ЯЗЫК (RU/EN) ===
+    const i18n = {
+      ru:{ tagline:'Авто и запчасти из ОАЭ • экспорт в СНГ', h1:'Один сайт — все направления: <span style="color:#7ef2a8">страховые авто, б/у, новые, агрегаты, кузовщина</span>', lead:'Подбор и поставки из ОАЭ: целые авто и под восстановление, авто на разбор, двигатели и трансмиссии, nose-cuts. Организуем погрузку, логистику, экспорт в страны СНГ. Работаем прозрачно и официально.', badge1:'Шарджа / Дубай', badge2:'Контейнеры и авиа', badge3:'Оптом и розница', badge4:'Отчёты и фото‑видео', cta1:'Найти запчасть', cta2:'Посмотреть страховые' },
+      en:{ tagline:'Cars & parts from UAE • export to CIS', h1:'One hub for <span style="color:#7ef2a8">salvage, used, new cars, engines, body kits</span>', lead:'Sourcing from UAE: clean & salvage cars, breaker cars, engines & gearboxes, nose-cuts. We handle packing, shipping and export to CIS.', badge1:'Sharjah / Dubai', badge2:'Containers & Air', badge3:'Wholesale & Retail', badge4:'Photo/Video Reports', cta1:'Find a part', cta2:'Browse salvage' }
+    };
+
+    function applyLang(){
+      const dict = i18n[state.lang];
+      $('#tagline').textContent = dict.tagline;
+      $$('[data-i18n="h1"]').forEach(n=> n.innerHTML = dict.h1);
+      $$('[data-i18n="lead"]').forEach(n=> n.textContent = dict.lead);
+      ['badge1','badge2','badge3','badge4','cta1','cta2','hc1','hc1p','hc2','hc2p','hc3','hc3p','hc4','hc4p'].forEach(k=>{
+        $$(`[data-i18n="${k}"]`).forEach(n=> n.textContent = (dict[k]||n.textContent));
+      });
+      $('#langToggle').textContent = state.lang.toUpperCase();
+      document.documentElement.lang = state.lang==='ru'?'ru':'en';
+    }
+
+    $('#langToggle').onclick = ()=>{ state.lang = state.lang==='ru'?'en':'ru'; applyLang(); };
+
+    // === ИНИТ ===
+    (function init(){
+      // начальный маршрут
+      if(!location.hash) location.hash = '#/';
+      onRoute();
+      applyLang();
+    })();
+
+    // === Аналитика (заготовка). Замените на ваш ID, например Yandex Metrica/GA4 ===
+    // window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
+  </script>
 </body>
 </html>

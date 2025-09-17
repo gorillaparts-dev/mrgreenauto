@@ -19,8 +19,8 @@
     "name":"MrGreenAuto",
     "url":"https://mrgreenauto.example/",
     "logo":"https://mrgreenauto.example/img/logo.png",
-    "sameAs":["https://t.me/@mrgreenauto","https://instagram.com/greengoimport"],
-    "contactPoint":[{"@type":"ContactPoint","telephone":"@mrgreenauto","contactType":"sales","areaServed":"RU,KZ,BY,AE"}]
+    "sameAs":["https://t.me/MrGreenAuto","https://instagram.com/MrGreenAuto"],
+    "contactPoint":[{"@type":"ContactPoint","telephone":"+971585568909","contactType":"sales","areaServed":"RU,KZ,BY,AE"}]
   }</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,7 @@
     .brand{display:flex;gap:10px;align-items:center}
     .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#0ea5e9);display:grid;place-items:center;font-weight:800;color:#0b0f14}
     .brand-name{font-weight:700;letter-spacing:.2px}
-    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu{display:flex;gap:14px;flex-wrap:wrap justify-content:center; }
     .menu a{padding:8px 10px;border-radius:10px;color:#c8d3e0}
     .menu a.active,.menu a:hover{background:#0f1622}
     .cta{display:flex;gap:10px;align-items:center}
@@ -129,15 +129,13 @@
       <nav class="menu" id="menu">
         <a href="#/" data-route>Главная</a>
         <a href="#/catalog" data-route>Каталог</a>
-        <a href="#/favorites" data-route>Избранное</a>
         <a href="#/about" data-route>О нас</a>
         <a href="#/logistics" data-route>Логистика</a>
-        <a href="#/faq" data-route>FAQ</a>
       </nav>
       <div class="cta">
         <span class="lang" id="langToggle" title="RU / EN">RU</span>
-        <a class="btn" href="tel:@mrgreenauto">+971 58 556 8909</a>
-        <a class="btn btn-brand" target="_blank" href="https://t.me/@mrgreenauto">Написать в TG</a>
+        <a class="btn" href="tel:+971585568909">+971 58 556 8909</a>
+        <a class="btn btn-brand" target="_blank" href="https://t.me/MrGreenAuto">Написать в TG</a>
       </div>
     </div>
   </header>
@@ -199,11 +197,7 @@
     </div>
   </main>
 
-  <main class="container page" id="page-favorites">
-    <h2>Избранное</h2>
-    <div id="favList" class="grid"></div>
-    <div id="favEmpty" class="empty" style="display:none">В избранном пока пусто.</div>
-  </main>
+  
 
   <main class="container page" id="page-about">
     <div class="prose">
@@ -230,14 +224,7 @@
     </div>
   </main>
 
-  <main class="container page" id="page-faq">
-    <div class="prose">
-      <h2>FAQ</h2>
-      <p><b>Как купить страховой автомобиль?</b> Мы предоставим доступ к лотам, сделаем проверку и рассчитаем бюджет восстановления.</p>
-      <p><b>Есть ли гарантия на агрегаты?</b> Да, гарантия запуска и проверка компрессии (по согласованию).</p>
-      <p><b>Как оформить доставку?</b> Оставьте заявку на лоте — мы подтвердим сроки и тариф.</p>
-    </div>
-  </main>
+  
 
   <footer>
     <div class="container ft">
@@ -245,10 +232,10 @@
         <h4>MrGreenAuto</h4>
         <p class="muted">Авто и запчасти из ОАЭ: страховые авто с аукционов под восстановление, б/у с рынка, новые авто, а также авто на запчасти, агрегаты и кузовщина. Экспорт и сопровождение.</p>
         <div class="social">
-          <a target="_blank" href="https://t.me/@mrgreenauto">Telegram</a>
-          <a target="_blank" href="https://instagram.com/greengoimport">Instagram</a>
+          <a target="_blank" href="https://t.me/MrGreenAuto">Telegram</a>
+          <a target="_blank" href="https://instagram.com/MrGreenAuto">Instagram</a>
           <a href="mailto:info@mrgreenauto.com">info@mrgreenauto.com</a>
-          <a href="tel:@mrgreenauto">+971 58 556 8909</a>
+          <a href="tel:+971585568909">+971 58 556 8909</a>
         </div>
       </div>
       <div>
@@ -273,7 +260,7 @@
     </div>
   </footer>
 
-  <div class="toast" id="toast">Добавлено в избранное</div>
+  
 
   <!-- ДАННЫЕ: можно вынести в data.json, но для GitHub Pages всё работает и inline -->
   <script id="data" type="application/json">{
@@ -298,11 +285,9 @@
       '/': ()=> show('page-home'),
       '/catalog': ()=>{ show('page-catalog-filters','page-catalog'); bootstrapCatalog(); applyFilters(); },
       '/item': (params)=>{ show('page-item'); renderItem(params.get('id')); },
-      '/favorites': ()=>{ show('page-favorites'); renderFavorites(); },
+      
       '/about': ()=> show('page-about'),
-      '/logistics': ()=> show('page-logistics'),
-      '/faq': ()=> show('page-faq')
-    };
+      '/logistics': ()=> show('page-logistics')};
 
     function parseHash(){
       const [path,q] = location.hash.replace(/^#/, '').split('?');
@@ -379,7 +364,7 @@
             ${item.images.map((src,i)=>`<img src="${src}" alt="${item.title} — фото ${i+1}" class="${i===0?'active':''}">`).join('')}
           </div>
           ${chips}
-          <button class="fav" title="В избранное" data-fav="${item.id}" onclick="event.preventDefault();"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+          
           <div class="dots">${item.images.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join('')}</div>
         </a>
         <div class="card-body">
@@ -389,7 +374,7 @@
           <div class="grp" style="margin-top:10px">${specs}</div>
         </div>
         <div class="row">
-          <a class="pill" target="_blank" href="https://t.me/@mrgreenauto?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
+          <a class="pill" target="_blank" href="https://t.me/MrGreenAuto?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
           <a class="pill" href="mailto:info@mrgreenauto.com?subject=${encodeURIComponent('Заявка: '+item.title)}&body=${encodeURIComponent('Здравствуйте! Хочу уточнить детали по: '+item.title+' ['+item.id+']
 Категория: '+item.category+'
 Состояние: '+item.status+'
@@ -427,21 +412,20 @@
             <div class="grp">${(item.chips||[]).map(c=>`<span class='badge'>${c}</span>`).join('')}</div>
           </div>
           <div class="row">
-            <a class="pill" target="_blank" href="https://t.me/@mrgreenauto?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
+            <a class="pill" target="_blank" href="https://t.me/MrGreenAuto?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
             <a class="pill" href="mailto:info@mrgreenauto.com?subject=${encodeURIComponent('Заявка: '+item.title)}&body=${encodeURIComponent('Здравствуйте! Хочу уточнить детали по: '+item.title+' ['+item.id+']
 Категория: '+item.category+'
 Состояние: '+item.status+'
 Локация: '+item.location)}">Запрос по email</a>
             <button class="pill green" data-order="${item.id}">Заказать / Бронь</button>
-            <button class="pill" data-fav="${item.id}">В избранное</button>
+            
           </div>
         </article>`;
       initCarousel($('#itemView'));
     }
 
     // === ИЗБРАННОЕ ===
-    const toast = $('#toast');
-    function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1600); }
+    
 
     document.addEventListener('click',e=>{
       const fav = e.target.closest('[data-fav]');
@@ -456,24 +440,11 @@
         const id = ord.getAttribute('data-order');
         const item = state.listings.find(x=>x.id===id);
         const text = `Бронь / заказ: ${item.title} [${item.id}]`;
-        window.open(`https://t.me/@mrgreenauto?text=${encodeURIComponent(text)}`, '_blank');
+        window.open(`https://t.me/MrGreenAuto?text=${encodeURIComponent(text)}`, '_blank');
       }
     });
 
-    function renderFavorites(){
-      const arr = JSON.parse(localStorage.getItem('fav')||'[]');
-      const list = state.listings.filter(x=>arr.includes(x.id));
-      const wrap = $('#favList');
-      wrap.innerHTML='';
-      $('#favEmpty').style.display = list.length? 'none':'block';
-      list.forEach(item=>{
-        const col = document.createElement('div'); col.className='col-3';
-        col.innerHTML = cardHTML(item);
-        wrap.appendChild(col); initCarousel(col);
-      });
-    }
-
-    // === ЯЗЫК (RU/EN) ===
+        // === ЯЗЫК (RU/EN) ===
     const i18n = {
       ru:{ tagline:'Авто и запчасти из ОАЭ • экспорт в СНГ', h1:'Один сайт — все направления: <span style="color:#7ef2a8">страховые авто, б/у, новые, агрегаты, кузовщина</span>', lead:'Подбор и поставки из ОАЭ: целые авто и под восстановление, авто на разбор, двигатели и трансмиссии, nose-cuts. Организуем погрузку, логистику, экспорт в страны СНГ. Работаем прозрачно и официально.', badge1:'Шарджа / Дубай', badge2:'Контейнеры и авиа', badge3:'Оптом и розница', badge4:'Отчёты и фото‑видео', cta1:'Найти запчасть', cta2:'Посмотреть страховые' },
       en:{ tagline:'Cars & parts from UAE • export to CIS', h1:'One hub for <span style="color:#7ef2a8">salvage, used, new cars, engines, body kits</span>', lead:'Sourcing from UAE: clean & salvage cars, breaker cars, engines & gearboxes, nose-cuts. We handle packing, shipping and export to CIS.', badge1:'Sharjah / Dubai', badge2:'Containers & Air', badge3:'Wholesale & Retail', badge4:'Photo/Video Reports', cta1:'Find a part', cta2:'Browse salvage' }

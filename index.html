@@ -19,8 +19,8 @@
     "name":"MrGreenAuto",
     "url":"https://mrgreenauto.example/",
     "logo":"https://mrgreenauto.example/img/logo.png",
-    "sameAs":["https://t.me/+971585085529","https://instagram.com/greengoimport"],
-    "contactPoint":[{"@type":"ContactPoint","telephone":"+971585085529","contactType":"sales","areaServed":"RU,KZ,BY,AE"}]
+    "sameAs":["https://t.me/@mrgreenauto","https://instagram.com/greengoimport"],
+    "contactPoint":[{"@type":"ContactPoint","telephone":"@mrgreenauto","contactType":"sales","areaServed":"RU,KZ,BY,AE"}]
   }</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,8 +136,8 @@
       </nav>
       <div class="cta">
         <span class="lang" id="langToggle" title="RU / EN">RU</span>
-        <a class="btn" href="tel:+971585085529">+971 58 508 5529</a>
-        <a class="btn btn-brand" target="_blank" href="https://t.me/+971585085529">Написать в TG</a>
+        <a class="btn" href="tel:@mrgreenauto">+971 58 556 8909</a>
+        <a class="btn btn-brand" target="_blank" href="https://t.me/@mrgreenauto">Написать в TG</a>
       </div>
     </div>
   </header>
@@ -245,10 +245,10 @@
         <h4>MrGreenAuto</h4>
         <p class="muted">Авто и запчасти из ОАЭ: страховые авто с аукционов под восстановление, б/у с рынка, новые авто, а также авто на запчасти, агрегаты и кузовщина. Экспорт и сопровождение.</p>
         <div class="social">
-          <a target="_blank" href="https://t.me/+971585085529">Telegram</a>
+          <a target="_blank" href="https://t.me/@mrgreenauto">Telegram</a>
           <a target="_blank" href="https://instagram.com/greengoimport">Instagram</a>
           <a href="mailto:info@mrgreenauto.com">info@mrgreenauto.com</a>
-          <a href="tel:+971585085529">+971 58 508 5529</a>
+          <a href="tel:@mrgreenauto">+971 58 556 8909</a>
         </div>
       </div>
       <div>
@@ -266,7 +266,7 @@
         <h4>Контакты</h4>
         <div class="muted" style="display:grid;gap:6px">
           <span>ОАЭ: Дубай / Шарджа</span>
-          <span>WhatsApp / Telegram: +971 58 508 5529</span>
+          <span>WhatsApp / Telegram: +971 58 556 8909</span>
           <span>Работаем официально • Договор и инвойсы</span>
         </div>
       </div>
@@ -389,7 +389,7 @@
           <div class="grp" style="margin-top:10px">${specs}</div>
         </div>
         <div class="row">
-          <a class="pill" target="_blank" href="https://t.me/+971585085529?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
+          <a class="pill" target="_blank" href="https://t.me/@mrgreenauto?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
           <a class="pill" href="mailto:info@mrgreenauto.com?subject=${encodeURIComponent('Заявка: '+item.title)}&body=${encodeURIComponent('Здравствуйте! Хочу уточнить детали по: '+item.title+' ['+item.id+']
 Категория: '+item.category+'
 Состояние: '+item.status+'
@@ -427,7 +427,7 @@
             <div class="grp">${(item.chips||[]).map(c=>`<span class='badge'>${c}</span>`).join('')}</div>
           </div>
           <div class="row">
-            <a class="pill" target="_blank" href="https://t.me/+971585085529?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
+            <a class="pill" target="_blank" href="https://t.me/@mrgreenauto?text=${encodeURIComponent('Интересует: '+item.title+' ('+item.id+')')}">Уточнить в TG</a>
             <a class="pill" href="mailto:info@mrgreenauto.com?subject=${encodeURIComponent('Заявка: '+item.title)}&body=${encodeURIComponent('Здравствуйте! Хочу уточнить детали по: '+item.title+' ['+item.id+']
 Категория: '+item.category+'
 Состояние: '+item.status+'
@@ -456,7 +456,7 @@
         const id = ord.getAttribute('data-order');
         const item = state.listings.find(x=>x.id===id);
         const text = `Бронь / заказ: ${item.title} [${item.id}]`;
-        window.open(`https://t.me/+971585085529?text=${encodeURIComponent(text)}`, '_blank');
+        window.open(`https://t.me/@mrgreenauto?text=${encodeURIComponent(text)}`, '_blank');
       }
     });
 
